@@ -1,0 +1,10 @@
+{
+  "id": "7e167464-aff0-46a7-8898-efd160b064d5",
+  "title": "Create a single, self-containe...",
+  "history": [
+    {
+      "role": "user",
+      "content": "Create a single, self-contained HTML file that runs locally in a browser and renders an interactive particle simulation using Canvas.\n\nThe simulation should handle ~1,000+ particles at interactive frame rates, with each particle maintaining position, velocity, lifetime, and a physical state variable (e.g. energy or mass). Particles should respawn when their lifetime expires.\n\nImplement multiple interacting forces, including particle\u2013particle interaction, velocity-dependent damping, and one continuous global field (e.g. vortex or gravity well). The system must remain numerically stable.\n\nUse a spatial optimization technique (grid or similar) to avoid O(n\u00b2) interactions. The simulation should self-organize into visible structures over time rather than behaving as pure noise.\n\nInclude mouse interaction that meaningfully affects particle dynamics and one keyboard toggle that alters simulation behavior at runtime.\n\nRender with alpha blending and derive particle color from physical state. Handle device pixel ratio and window resizing correctly.\n\nAll logic must live in a single HTML file with no external libraries or assets. The file should run via file://. Output the HTML file only."
+    }
+  ]
+}

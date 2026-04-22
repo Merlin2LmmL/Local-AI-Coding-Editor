@@ -1,0 +1,7 @@
+{
+  "planner_model": "mistral-nemo:12b",
+  "coder_model": "mistral-nemo:12b",
+  "max_history_turns": 20,
+  "task_planning_enabled": true,
+  "planning_auto_detect": true
+}
