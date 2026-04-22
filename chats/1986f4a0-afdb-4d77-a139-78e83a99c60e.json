@@ -1,0 +1,10 @@
+{
+  "id": "1986f4a0-afdb-4d77-a139-78e83a99c60e",
+  "title": "In the analog clock canvas, ad...",
+  "history": [
+    {
+      "role": "user",
+      "content": "In the analog clock canvas, add tick marks around the inside edge of the clock circle:\n\n12 hour marks: longer lines (about 15px), thicker stroke (width=2), drawn at every 30\u00b0 interval starting from 12 o'clock (0\u00b0), pointing inward from the circle rim\n60 minute/second marks: shorter lines (about 6px), thinner stroke (width=1), drawn at every 6\u00b0 interval, also pointing inward from the rim, but skip positions where an hour mark already exists\n\nAll marks should be the same color as the clock hands. Draw them as canvas lines from the outer rim inward."
+    }
+  ]
+}

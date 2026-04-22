@@ -64,7 +64,29 @@ def on_tool_call(name, args):
 def on_tool_result(name, result, success):
     try:
         result_data = json.loads(result)
-        result_str = json.dumps(result_data, indent=2)
+        
+        # Handle structured data like file listings - convert to plain text list
+        if isinstance(result_data, dict):
+            if "items" in result_data:
+                # File listing or similar with items array
+                items = result_data["items"]
+                result_str = "\n".join(str(item) for item in items[:50])
+            elif "paths" in result_data:
+                # Glob/ls output
+                paths = result_data["paths"]
+                result_str = "\n".join(str(p) for p in paths[:50])
+            elif "files" in result_data:
+                files = result_data["files"]
+                result_str = "\n".join(str(f) for f in files[:50])
+            elif "result" in result_data:
+                result_str = result_data["result"]
+            else:
+                result_str = json.dumps(result_data, indent=2)
+        elif isinstance(result_data, list):
+            result_str = "\n".join(str(item) for item in result_data[:50])
+        else:
+            result_str = json.dumps(result_data, indent=2)
+            
         if len(result_str) > 1000:
             result_str = result_str[:1000] + "\n... (truncated)"
     except (json.JSONDecodeError, TypeError):
@@ -72,10 +94,12 @@ def on_tool_result(name, result, success):
 
     style = "green" if success else "red"
     icon = "✓" if success else "✗"
-    console.print(Panel(
-        result_str, title=f"{icon} {name}",
-        border_style=style, expand=False,
-    ))
+    # Print directly without Panel to avoid terminal rendering issues
+    if result_str:
+        if success:
+            console.print(f"[green bold]{icon} {name}[/green bold]\n{result_str}")
+        else:
+            console.print(f"[red bold]{icon} {name}[/red bold]\n{result_str}")
 
 
 def on_debug_start(command):

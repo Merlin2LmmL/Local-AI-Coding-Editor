@@ -258,6 +258,7 @@ def should_use_planner(user_request: str) -> bool:
 # ── Executor (Qwen 3 Coder) ────────────────────────────────────────────
 
 EXECUTOR_SYSTEM = (
+    "IMPORTANT / 重要: Always respond in English only. 始终只用英文回复。\n"
     "You are a precise code executor. You receive a task that is part of a "
     "larger user request. You MUST follow the user's original instructions "
     "and constraints exactly — never contradict them. Complete the task using "
@@ -306,6 +307,13 @@ def execute_step(
             full_response += content
 
         if not tool_calls:
+            # Mechanical enforcer: warn the model if it made no tool calls
+            if not any(kw in (content or "") for kw in ("write_file", "search_replace", "run_command", "list_files", "read_file")):
+                messages.append({
+                    "role": "user",
+                    "content": "[SYSTEM: No tool was called. You must call a tool before proceeding. Respond in English only.]"
+                })
+                continue
             break
 
         for tc in tool_calls:

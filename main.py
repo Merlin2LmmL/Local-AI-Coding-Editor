@@ -25,7 +25,7 @@ app.add_middleware(
 
 # Compact system prompt — every token counts on local models
 SYSTEM_PROMPT = (
-    "You are a local AI coding assistant. Complete tasks using the provided tools. "
+    "IMPORTANT / 重要: Always respond in English only. 始终只用英文回复。\nYou are a local AI coding assistant. Complete tasks using the provided tools. "
     "Use search_replace for small edits, write_file for new files. "
     "Read files before editing. Run build/tests after changes. "
     "Reply concisely in Markdown. Use backticks for paths and symbols."
